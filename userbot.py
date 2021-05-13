@@ -24,5 +24,7 @@ async def forward_msg(event):
         if chat_id != from_chat_id:
             await event.message.forward_to(chat_id)
 
+# Code for forwarding Gmail and public account articles is not ready for publish yet
+
 loop.run_forever()
 

@@ -26,6 +26,16 @@ Bridging messages among Yao groups
 
 在这两个 bot 的帮助下，我们新建了两个 Telegram 群组，分别对应（微信上的）大群和二群，我们令 WeChat Bot 将两个微信群的消息分别转发到这两个 Telegram 群组中，然后使用 user bot 转发这两个群的消息，这两个群的消息便会被 WeChat bot 转发回微信端，实现微信两个群的消息同步。
 
+除此之外，我们还通过多种方式来将更多消息转发到群组中。目前实现的部分如下：
+
+1. 邮件列表中的邮件。我们先设置自动转发，将所有邮件转发到 Gmail（由于 Gmail 的可连通性不佳，我们实际还使用了一个邮箱作为中转），接着使用 Telegram Gmail bot 接受邮件，让 user bot 将符合条件的邮件转发到对应的群组中，并由 EFB 同步到微信。
+2. 活动室使用申请。我们使用一个学校自建的 Gitlab 服务中搭建一个仓库，使用申请通过向这个仓库提 issue 发出，当有新 issue 或者该仓库的其它动态出现时，Gitlab 服务会发送一封邮件，我们将这封邮件转发到 Gmail，接下来的步骤和 1 相同。
+3. 特定的公众号文章。在 Telegram 中建立一个群组，将需要转发的公众号链接到这个群组，user bot 会侦听这个群组，当这些公众号有新文章发布时，user bot 将对应的消息转发到对应的 Telegram 群，并由 EFB 同步到微信。
+
+我们目前的架构如下图所示：
+
+![目前的服务架构](assets/yao-bridge.png)
+
 ## Deployment
 
 我们的 WeChat Bot 是按照 [efb-wechat-slave](https://github.com/ehForwarderBot/efb-wechat-slave/) 中提供的方式部署的。
@@ -34,5 +44,5 @@ Bridging messages among Yao groups
 
 ## Credit
 
-Design: [Zenithal](https://github.com/ZenithalHourlyRate/)
+Architecture design: [Zenithal](https://github.com/ZenithalHourlyRate/)
 
