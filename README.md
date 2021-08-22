@@ -32,9 +32,11 @@ Bridging messages among Yao groups
 2. 活动室使用申请。我们使用一个学校自建的 Gitlab 服务中搭建一个仓库，使用申请通过向这个仓库提 issue 发出，当有新 issue 或者该仓库的其它动态出现时，Gitlab 服务会发送一封邮件，我们将这封邮件转发到 Gmail，接下来的步骤和 1 相同。
 3. 特定的公众号文章。在 Telegram 中建立一个群组，将需要转发的公众号链接到这个群组，user bot 会侦听这个群组，当这些公众号有新文章发布时，user bot 将对应的消息转发到对应的 Telegram 群，并由 EFB 同步到微信。
 
+为了方便在群内进行学术讨论，我们还支持根据聊天消息中的 LaTeX 代码生成图片发送到群中。使用方法如下：发送消息时，如果消息的文本中包含有 `/latex` （注意是正斜杠而不是 LaTeX 代码中常见的反斜杠），那么在 `/latex` 之后的所有文本均会被视为 LaTeX 代码编译，并且转换为图片发送到群中。实现细节见下文的图示。
+
 我们目前的架构如下图所示：
 
-![目前的服务架构](assets/yao-bridge.png)
+![目前的服务架构](assets/architecture.png)
 
 ## Deployment
 
